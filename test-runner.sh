@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #
-# test-runner.sh 0.0.0 - easily run generic self-executable test files.
+# test-runner.sh 0.1.0 - easily run generic self-executable test files.
 # https://github.com/jimeh/test-runner.sh
 #
 # (The MIT License)
