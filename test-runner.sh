@@ -102,18 +102,22 @@ fi
 
 success_count=0
 fail_count=0
+failed_files=()
 
 cwd="$(pwd)"
 for testfile in ${testfiles[@]}; do
+  testfile_relative="${testfile/#$(dirname "$testdir")\//}"
+
   echo ""
   echo -en "$(tput setaf 5)running: "
-  echo -e "$(tput setaf 6)${testfile/#$(dirname "$testdir")\//}$(tput sgr0)"
+  echo -e "$(tput setaf 6)${testfile_relative}$(tput sgr0)"
   cd "$(dirname "$testfile")"
   "./$(basename "$testfile")" ${testargs[@]}
   if [ "$?" == "0" ]; then
     ((success_count++))
   else
     ((fail_count++))
+    failed_files+=("$testfile_relative")
   fi
   cd "$cwd"
 done
@@ -123,6 +127,14 @@ echo ""
 #
 # Print summary and exit.
 #
+
+if [ -n "$failed_files" ]; then
+  echo "$(tput setaf 1)Failed test files:$(tput sgr0)"
+  for file in ${failed_files[@]}; do
+    echo "$(tput setaf 1) - ${file}$(tput sgr0)"
+  done
+  echo ""
+fi
 
 if [ "$fail_count" == "0" ]; then
   echo -n "$(tput setaf 2)PASSED:$(tput sgr0) "
