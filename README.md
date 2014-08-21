@@ -26,22 +26,27 @@ something like the following:
 test: test-runner.sh
 	./test-runner.sh
 
-clean: remove-test-runner.sh
+bootstrap: test-runner.sh
+clean: remove_test-runner.sh
+update: update_test-runner.sh
 
 test-runner.sh:
-	test -f "test-runner.sh" || \
-		echo "fetching test-runner.sh..." && \
-		curl -s -L -o test-runner.sh \
-			https://github.com/jimeh/test-runner.sh/raw/master/test-runner.sh && \
-		chmod +x test-runner.sh
+	echo "fetching test-runner.sh..." && \
+	curl -s -L -o test-runner.sh \
+		https://github.com/jimeh/test-runner.sh/raw/master/test-runner.sh && \
+	chmod +x test-runner.sh
 
-remove-test-runner.sh:
+remove_test-runner.sh:
 	( \
 		test -f "test-runner.sh" && rm "test-runner.sh" && \
 		echo "removed test-runner.sh"\
 	) || exit 0
 
-update-test-runner.sh: remove-test-runner.sh test-runner.sh
+update_test-runner.sh: remove_test-runner.sh test-runner.sh
+
+.SILENT:
+.PHONY: test bootstrap clean update \
+	remove_test-runner.sh update_test-runner.sh
 ```
 
 **Note:** To version lock `test-runner.sh` you will want to fetch it from a
