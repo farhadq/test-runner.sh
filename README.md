@@ -85,12 +85,14 @@ Configuration is done via environment variables:
   pattern. (default: `.test.sh`)
 
 
-## Real-World Examples
+## Real-World Use Cases
 
 - [stub.sh](https://github.com/jimeh/stub.sh) - Helpers for bash script
   testing to stub/fake binaries and functions. Includes support for validating
   number of stub calls, and/or if stub has been called with specific
   arguments.
+- [Tmuxifier](https://github.com/jimeh/tmuxifier) - Tmuxify your
+  Tmux. Powerful session, window & pane management for Tmux.
 
 
 ## License
