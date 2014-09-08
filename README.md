@@ -39,7 +39,7 @@ test-runner.sh:
 remove_test-runner.sh:
 	( \
 		test -f "test-runner.sh" && rm "test-runner.sh" && \
-		echo "removed test-runner.sh"\
+		echo "removed test-runner.sh" \
 	) || exit 0
 
 update_test-runner.sh: remove_test-runner.sh test-runner.sh
